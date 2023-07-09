@@ -51,6 +51,24 @@ img {
   padding: 10px;
 }
 
+.filter {
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.filter .filter-btn {
+  cursor: pointer;
+  background-color: lightgrey;
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+}
+
+.filter .filter-btn:hover {
+  background-color: white;
+}
+
 .restaurant-card {
   width: 200px;
   min-height: 200px;
@@ -75,5 +93,6 @@ img {
 
 .restaurant-container {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 }
