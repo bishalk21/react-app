@@ -37,14 +37,27 @@ img {
 
 .nav-links > ul {
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-links > ul > li {
   padding: 10px;
-  margin: 10px;
+  margin: 5px;
   list-style: none;
   font-size: 20px;
   cursor: pointer;
+}
+
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 20px;
+  border-radius: 5px;
 }
 
 .search-container {
@@ -52,9 +65,38 @@ img {
 }
 
 .filter {
+  width: 100%;
   color: white;
-  padding: 10px;
+  padding: 20px;
   text-align: center;
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.search {
+  display: flex;
+  gap: 15px;
+}
+
+.search input {
+  min-width: 250px;
+  flex-basis: 70%;
+}
+
+.search input,
+.search button {
+  border: none;
+  padding: 8px;
+}
+
+.search button {
+  cursor: pointer;
+  background-color: lightgrey;
+  flex-basis: 30%;
+  border-radius: 10px;
 }
 
 .filter .filter-btn {
@@ -95,4 +137,69 @@ img {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.shimmer-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.shimmer-card {
+  margin: 5px;
+  width: 200px;
+  min-height: 200px;
+  border-radius: 8px;
+  background-color: lightgrey;
+  padding: 40px;
+  position: relative;
+}
+
+.card-content,
+.card-content-half,
+.card-content-img {
+  border-radius: 8px;
+  /* background-color: rgb(151, 145, 145); */
+  background: linear-gradient(to right, rgb(151, 145, 145), rgb(179, 175, 175));
+  animation: backgroundTransition 5s linear infinite;
+  position: absolute;
+  background-size: 200% 100%;
+}
+
+@keyframes backgroundTransition {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+  /* 100% {
+    background-position: 0% 0%;
+  } */
+}
+
+.card-content-img {
+  width: 180px;
+  height: 90px;
+  top: calc(100% - 190px);
+  right: calc(100% - 280px);
+  transform: translateX(-50%);
+}
+
+.card-content {
+  width: 180px;
+  height: 30px;
+  top: calc(100% - 50px);
+  right: calc(100% - 280px);
+  transform: translateX(-50%);
+}
+
+.card-content-half {
+  width: 80%;
+  height: 30px;
+  top: calc(100% - 90px);
+  right: calc(100% - 250px);
+  transform: translateX(-50%);
 }
