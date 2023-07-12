@@ -111,28 +111,6 @@ img {
   background-color: white;
 }
 
-.restaurant-card {
-  width: 200px;
-  min-height: 200px;
-  border-radius: 8px;
-  background-color: lightgrey;
-  padding: 5px;
-  margin: 5px;
-}
-
-.restaurant-card:hover {
-  cursor: pointer;
-  background-color: transparent;
-  color: white;
-  border: 1px solid lightgrey;
-}
-
-.restaurant-img {
-  width: 100%;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
 .restaurant-container {
   display: flex;
   justify-content: center;
@@ -149,15 +127,16 @@ img {
 
 .shimmer-card {
   margin: 5px;
-  width: 200px;
-  min-height: 200px;
-  border-radius: 8px;
+  width: 22rem;
+  height: 23.5rem;
+  border-radius: 5px;
   background-color: lightgrey;
   padding: 40px;
   position: relative;
 }
 
 .card-content,
+.card-content-sec,
 .card-content-half,
 .card-content-img {
   border-radius: 8px;
@@ -181,25 +160,33 @@ img {
 }
 
 .card-content-img {
-  width: 180px;
-  height: 90px;
-  top: calc(100% - 190px);
-  right: calc(100% - 280px);
+  width: 20rem;
+  height: 9rem;
+  top: calc(100% - 360px);
+  right: calc(100% - 495px);
   transform: translateX(-50%);
 }
 
 .card-content {
-  width: 180px;
-  height: 30px;
-  top: calc(100% - 50px);
-  right: calc(100% - 280px);
+  width: 20rem;
+  height: 3rem;
+  top: calc(100% - 80px);
+  right: calc(100% - 495px);
+  transform: translateX(-50%);
+}
+
+.card-content-sec {
+  width: 20rem;
+  height: 3rem;
+  top: calc(100% - 140px);
+  right: calc(100% - 495px);
   transform: translateX(-50%);
 }
 
 .card-content-half {
   width: 80%;
-  height: 30px;
-  top: calc(100% - 90px);
-  right: calc(100% - 250px);
+  height: 3rem;
+  top: calc(100% - 200px);
+  right: calc(100% - 436px);
   transform: translateX(-50%);
 }
