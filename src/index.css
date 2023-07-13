@@ -6,6 +6,18 @@
 
 body {
   background-color: #100f0f;
+  color: lightgray;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  padding: 10px;
+  color: black;
+}
+
+a:hover {
+  border: 1px solid lightgray;
 }
 
 .app {
@@ -49,7 +61,15 @@ img {
   cursor: pointer;
 }
 
-.login {
+.account {
+  background-color: transparent;
+}
+
+.account a:hover {
+  border: none;
+}
+
+.login-logout {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -115,6 +135,7 @@ img {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  color: #100f0f;
 }
 
 .shimmer-container {

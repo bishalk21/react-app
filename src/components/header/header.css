@@ -1,5 +1,5 @@
-@media all and (max-width: 676px) {
-  .home,
+@media all and (max-width: 776px) {
+  .contact,
   .about-us {
     display: none;
   }

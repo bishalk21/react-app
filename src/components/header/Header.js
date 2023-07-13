@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logo from "../../assets/logo.png";
 import "./header.css";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   // const [btnName, setBtnName] = useState("Login");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {}, [isLoggedIn]);
 
   const handleOnBtnClick = () => {
     // setBtnName("Logout")
@@ -14,21 +17,30 @@ const Header = () => {
   return (
     <div className="header">
       <div className="logo">
-        <img src={logo} alt="logo" />
+        <Link to="/">
+          <img src={logo} alt="logo" />
+        </Link>
       </div>
       <div className="nav-links">
         <ul>
-          <li className="home">
-            <i class="fa-solid fa-house"></i> Home
-          </li>
           <li className="about-us">
-            <i class="fa-solid fa-people-carry-box"></i> About Us
+            <Link to="/about">
+              <i class="fa-solid fa-people-carry-box"></i> About Us
+            </Link>
+          </li>
+          <li className="contact">
+            <Link to="/contact">
+              <i class="fa-solid fa-paper-plane"></i> Contact Us
+            </Link>
           </li>
           <li className="cart">
-            <i class="fa-solid fa-cart-shopping"></i> Cart
+            <Link to="cart">
+              <i class="fa-solid fa-cart-shopping"></i> Cart
+            </Link>
           </li>
+
           <li className="account">
-            <button className="login" onClick={handleOnBtnClick}>
+            <button className="login-logout" onClick={handleOnBtnClick}>
               {isLoggedIn ? (
                 <>
                   <i class="fa-solid fa-user-large"></i> Logout
