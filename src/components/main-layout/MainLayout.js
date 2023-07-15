@@ -3,6 +3,7 @@ import RestaurantCard from "../restro-card/RestaurantCard";
 import ShimmerUI from "../shimmer-ui/ShimmerUI";
 import { Link } from "react-router-dom";
 import { RESTRO_LIST } from "../../utils/constant";
+import useOnlineStatus from "../../hooks/useOnlineStatus";
 // import { resObjList } from "../../utils/mockData";
 
 const MainLayout = () => {
@@ -11,6 +12,7 @@ const MainLayout = () => {
   const [filteredResList, setFilteredResList] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [showAllRestaurants, setShowAllRestaurants] = useState(false);
+  const onlineStatus = useOnlineStatus();
 
   // console.log("body rendered");
 
@@ -29,6 +31,12 @@ const MainLayout = () => {
   const handleSeeAllRestaurants = () => {
     setShowAllRestaurants(true);
   };
+
+  if (onlineStatus === false) {
+    return (
+      <h1>Looks like you're offline, Please check your internet connection </h1>
+    );
+  }
 
   return (
     <>
@@ -79,7 +87,7 @@ const MainLayout = () => {
           </>
         </div>
         <>
-          {resList.length === 0 ? (
+          {resList?.length === 0 ? (
             <>
               <ShimmerUI />
             </>

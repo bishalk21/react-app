@@ -1,17 +1,26 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import MainLayout from "./components/main-layout/MainLayout";
 import Header from "./components/header/Header";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import About from "./pages/about-us/About";
 import Contact from "./pages/contact/Contact";
 import Error from "./pages/error-page/Error";
-import RestaurantMenu from "./pages/restaurant-menu/RestaurantMenu";
+// import RestaurantMenu from "./pages/restaurant-menu/RestaurantMenu";
+import AboutUs from "./pages/about-us/AboutUs";
+import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
+import ShimmerUI from "./components/shimmer-ui/ShimmerUI";
+// import Grocery from "./learning-optimization/Grocery";
+
+const Grocery = lazy(() => import("./learning-optimization/Grocery"));
+const RestaurantMenu = lazy(() =>
+  import("./pages/restaurant-menu/RestaurantMenu")
+);
 
 const AppLayout = () => {
   return (
     <div className="app">
+      <ScrollToTop />
       <Header />
       <Outlet />
     </div>
@@ -29,7 +38,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About />,
+        element: <AboutUs />,
       },
       {
         path: "/contact",
@@ -37,7 +46,19 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/restaurants/:resId",
-        element: <RestaurantMenu />,
+        element: (
+          <Suspense fallback={<ShimmerUI />}>
+            <RestaurantMenu />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/grocery",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Grocery />
+          </Suspense>
+        ),
       },
     ],
     errorElement: <Error />,
