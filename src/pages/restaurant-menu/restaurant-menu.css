@@ -165,9 +165,12 @@ li.show {
 }
 
 .meal-content-bottom {
-  padding-top: 1.3rem;
+  padding-top: 1rem;
   text-transform: capitalize;
   font-weight: 600;
+  max-height: 100px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .menu-section .btn {
