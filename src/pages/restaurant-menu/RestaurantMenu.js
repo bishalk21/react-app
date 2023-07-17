@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ShimmerUI from "../../components/shimmer-ui/ShimmerUI";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useRestaurantMenu from "../../hooks/useRestaurantMenu";
 import "./restaurant-menu.css";
 import { MEAL_IMG_URL } from "../../utils/constant";
@@ -74,7 +74,12 @@ const RestaurantMenu = () => {
           <h1>{name}</h1>
           <p>{costForTwoMessage}</p>
         </div>
-        <p>{cuisines.join(", ")}</p>
+        <div className="cuisines-price">
+          <p>{cuisines.join(", ")}</p>
+          <Link to="contact" className="btn btn-primary book-btn">
+            Reserve
+          </Link>
+        </div>
       </div>
       <section className="light-body" id="menus">
         <div className="container">

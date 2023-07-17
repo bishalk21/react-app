@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import "./app.css";
 import MainLayout from "./components/main-layout/MainLayout";
 import Header from "./components/header/Header";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
@@ -41,7 +42,7 @@ const appRouter = createBrowserRouter([
         element: <AboutUs />,
       },
       {
-        path: "/contact",
+        path: "/restaurants/:resId/contact",
         element: <Contact />,
       },
       {
