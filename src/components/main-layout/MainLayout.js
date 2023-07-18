@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import RestaurantCard from "../restro-card/RestaurantCard";
+import RestaurantCard, {
+  withPromotedLabel,
+} from "../restro-card/RestaurantCard";
 import ShimmerUI from "../shimmer-ui/ShimmerUI";
 import { Link } from "react-router-dom";
 import { RESTRO_LIST } from "../../utils/constant";
@@ -13,6 +15,8 @@ const MainLayout = () => {
   const [searchText, setSearchText] = useState("");
   const [showAllRestaurants, setShowAllRestaurants] = useState(false);
   const onlineStatus = useOnlineStatus();
+
+  const RestaurantCardWithPromoted = withPromotedLabel(RestaurantCard);
 
   // console.log("body rendered");
 
@@ -96,14 +100,20 @@ const MainLayout = () => {
               {!showAllRestaurants
                 ? filteredResList.map((res) => (
                     <Link key={res.data.id} to={"/restaurants/" + res.data.id}>
-                      {" "}
-                      <RestaurantCard resData={res} />
+                      {res.data.promoted ? (
+                        <RestaurantCardWithPromoted resData={res} />
+                      ) : (
+                        <RestaurantCard resData={res} />
+                      )}
                     </Link>
                   ))
                 : resList.map((res) => (
                     <Link key={res.data.id} to={"/restaurants/" + res.data.id}>
-                      {" "}
-                      <RestaurantCard resData={res} />
+                      {res.data.promoted ? (
+                        <RestaurantCardWithPromoted resData={res} />
+                      ) : (
+                        <RestaurantCard resData={res} />
+                      )}
                     </Link>
                   ))}
             </div>

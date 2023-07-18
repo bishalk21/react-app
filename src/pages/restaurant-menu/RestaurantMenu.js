@@ -4,12 +4,14 @@ import { Link, useParams } from "react-router-dom";
 import useRestaurantMenu from "../../hooks/useRestaurantMenu";
 import "./restaurant-menu.css";
 import { MEAL_IMG_URL } from "../../utils/constant";
+import RestaurantCategory from "../../components/restaurant-category/RestaurantCategory";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const resMenu = useRestaurantMenu(resId);
   const [filteredResList, setFilteredResList] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [showIndex, setShowIndex] = useState(-1);
 
   const handleFilterClick = (filterName) => {
     if (filterName === "all") {
@@ -43,12 +45,17 @@ const RestaurantMenu = () => {
     setFilteredResList(itemCards);
   }, [resMenu]);
 
-  console.log(filteredResList);
-
   if (resMenu === null) return <ShimmerUI />;
 
   const { name, cuisines, costForTwoMessage } =
     resMenu?.cards[0]?.card?.card?.info;
+
+  const categories =
+    resMenu?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+      (c) =>
+        c.card?.card?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
 
   // const { itemCards } =
   //   resMenu?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
@@ -81,6 +88,20 @@ const RestaurantMenu = () => {
           </Link>
         </div>
       </div>
+
+      {categories.map((category, index) => {
+        return (
+          <RestaurantCategory
+            key={category?.card?.card?.title}
+            data={category?.card?.card}
+            showItems={index === showIndex ? true : false}
+            setShowIndex={() => {
+              setShowIndex((prevIndex) => (prevIndex === index ? -1 : index));
+            }}
+          />
+        );
+      })}
+
       <section className="light-body" id="menus">
         <div className="container">
           <div className="menus-header">
