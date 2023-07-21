@@ -1,14 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import logo from "../../assets/logo.png";
 import "./header.css";
 import { Link } from "react-router-dom";
 import MobileNav from "./mobile-nav/MobileNav";
+import UserContext from "../../context/UserContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   // const [btnName, setBtnName] = useState("Login");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [sticky, setSticky] = useState(false);
   const [mobileNavbar, setMobileNavbar] = useState(false);
+
+  const cartItems = useSelector((store) => store.cart.items);
+
+  const { loggedInUser, setUserInfo } = useContext(UserContext);
 
   const handleOnClick = () => {
     setMobileNavbar(!mobileNavbar);
@@ -40,6 +46,18 @@ const Header = () => {
           </Link>
         </div>
 
+        <div>
+          <label htmlFor="" className="p-3">
+            User
+          </label>
+          <input
+            type="text"
+            className="text-black"
+            value={loggedInUser}
+            onChange={(e) => setUserInfo(e.target.value)}
+          />
+        </div>
+
         <div className="right-menu">
           <div className="nav-links">
             <ul>
@@ -59,8 +77,9 @@ const Header = () => {
                 </Link>
               </li>
               <li className="cart">
-                <Link to="cart">
+                <Link to="/cart">
                   <i class="fa-solid fa-cart-shopping"></i> Cart
+                  <span>{cartItems.length}</span>
                 </Link>
               </li>
 
@@ -72,7 +91,8 @@ const Header = () => {
                     </>
                   ) : (
                     <>
-                      <i class="fa-solid fa-right-to-bracket"></i> Login
+                      <i class="fa-solid fa-right-to-bracket"></i>{" "}
+                      {loggedInUser}
                     </>
                   )}
                 </button>

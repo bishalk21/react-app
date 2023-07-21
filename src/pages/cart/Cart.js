@@ -1,20 +1,24 @@
-import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { MEAL_IMG_URL } from "../../utils/constant";
-import { addItem } from "../../reducers/cartSlice";
-import { useDispatch } from "react-redux";
+import { clearCart, removeItem } from "../../reducers/cartSlice";
 
-const RestaurantMenuList = ({ menus }) => {
+const Cart = () => {
+  const cartItems = useSelector((store) => store.cart.items);
+
   const dispatch = useDispatch();
 
-  const handleOnClick = (item) => {
-    dispatch(addItem(item));
+  const handleOnClick = () => {
+    dispatch(clearCart());
   };
+
   return (
-    <div className="p-1">
-      {menus.map((menu) => (
+    <div>
+      <h1 className="font-bold">Cart Items - {cartItems.length}</h1>
+
+      {cartItems.map((menu) => (
         <div
           key={menu.card.info.id}
-          className="flex justify-between h-32 p-4 m-2 border-gray-200 border-b-2"
+          className="flex justify-between h-32 p-4 m-2 border-gray-200 border-b-2 bg-gray"
         >
           <div className="title-desc-price-ratings w-9/12 flex flex-col justify-start text-left">
             <h2 className="text-lg font-bold">{menu.card.info.name}</h2>
@@ -32,10 +36,10 @@ const RestaurantMenuList = ({ menus }) => {
 
           <div className="w-3/12">
             <button
-              onClick={() => handleOnClick(menu)}
+              onClick={() => handleOnClick()}
               className="absolute bg-black text-white shadow-lg m-auto p-2 rounded-lg"
             >
-              Add +
+              Remove -
             </button>
 
             <img
@@ -50,4 +54,4 @@ const RestaurantMenuList = ({ menus }) => {
   );
 };
 
-export default RestaurantMenuList;
+export default Cart;

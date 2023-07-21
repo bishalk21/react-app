@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import "./app.css";
@@ -11,6 +11,10 @@ import Error from "./pages/error-page/Error";
 import AboutUs from "./pages/about-us/AboutUs";
 import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
 import ShimmerUI from "./components/shimmer-ui/ShimmerUI";
+import UserContext from "./context/UserContext";
+import store from "./utils/store";
+import { Provider } from "react-redux";
+import Cart from "./pages/cart/Cart";
 // import Grocery from "./learning-optimization/Grocery";
 
 const Grocery = lazy(() => import("./learning-optimization/Grocery"));
@@ -19,12 +23,32 @@ const RestaurantMenu = lazy(() =>
 );
 
 const AppLayout = () => {
+  const [userInfo, setUserInfo] = useState();
+
+  useEffect(() => {
+    // api call - username and password
+    const data = {
+      name: "Bishal Karki",
+    };
+    setUserInfo(data.name);
+  }, []);
+
   return (
-    <div className="app">
-      <ScrollToTop />
-      <Header />
-      <Outlet />
-    </div>
+    <Provider store={store}>
+      {/* // default value */}
+      <UserContext.Provider value={{ loggedInUser: userInfo, setUserInfo }}>
+        {/* Bishal Karki */}
+        <div className="app">
+          <ScrollToTop />
+          <UserContext.Provider value={{ loggedInUser: userInfo, setUserInfo }}>
+            {/* Akshay Saini */}
+            <Header />
+          </UserContext.Provider>
+
+          <Outlet />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
@@ -60,6 +84,10 @@ const appRouter = createBrowserRouter([
             <Grocery />
           </Suspense>
         ),
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
     ],
     errorElement: <Error />,
