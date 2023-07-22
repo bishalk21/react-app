@@ -44,12 +44,13 @@ const MainLayout = () => {
 
   return (
     <>
-      <div className="main-page">
-        <div className="filter">
-          <div className="search">
+      <div className="relative">
+        <div className="w-full p-5 text-center flex gap-6 flex-wrap items-center justify-center text-black max-[426px]:text-sm">
+          <div className="flex gap-3">
             <input
               data-testid="search-input"
               type="text"
+              className="min-w-[250px] flex basis-3/4 border-none p-2"
               value={searchText}
               onChange={(e) => {
                 setSearchText(e.target.value);
@@ -58,6 +59,7 @@ const MainLayout = () => {
             />
             <button
               data-testid="search-btn"
+              className="border-none p-2 cursor-pointer bg-[lightgray] flex basis-1/2 rounded-lg hover:bg-white"
               onClick={() => {
                 // once got the search text in state
                 // filter the restaurant list, render the comp and update the ui
@@ -73,7 +75,7 @@ const MainLayout = () => {
           </div>
           <>
             <button
-              className="filter-btn"
+              className="cursor-pointer bg-[lightgray] p-2 rounded-lg border-none hover:bg-white"
               onClick={() => {
                 const filteredList = resList.filter(
                   (res) => res.data.avgRating > 4
@@ -85,7 +87,7 @@ const MainLayout = () => {
               Top Rated Restaurants
             </button>
             <button
-              className="filter-btn see-all-btn"
+              className="cursor-pointer bg-[lightgray] p-2 rounded-lg border-none hover:bg-white see-all-btn"
               onClick={handleSeeAllRestaurants}
             >
               See All Restaurants
@@ -98,7 +100,10 @@ const MainLayout = () => {
               <ShimmerUI />
             </>
           ) : (
-            <div className="restaurant-container" data-testid="restro-list">
+            <div
+              className="flex flex-wrap justify-center text-[#100f0f]"
+              data-testid="restro-list"
+            >
               {!showAllRestaurants
                 ? filteredResList.map((res) => (
                     <Link key={res.data.id} to={"/restaurants/" + res.data.id}>
