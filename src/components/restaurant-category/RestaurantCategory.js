@@ -21,7 +21,12 @@ const RestaurantCategory = ({ data, showItems, setShowIndex }) => {
           </span>
         </div>
 
-        {showItems && <RestaurantMenuList menus={data?.itemCards} setShowIndex={setShowIndex} />}
+        {showItems && (
+          <RestaurantMenuList
+            menus={data?.itemCards}
+            setShowIndex={setShowIndex}
+          />
+        )}
       </div>
     </div>
   );
