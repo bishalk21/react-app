@@ -13,6 +13,7 @@ const RestaurantMenuList = ({ menus }) => {
     <div className="p-1">
       {menus.map((menu) => (
         <div
+          data-testid="menu"
           key={menu.card.info.id}
           className="flex justify-between h-32 p-4 m-2 border-gray-200 border-b-2"
         >
@@ -32,6 +33,7 @@ const RestaurantMenuList = ({ menus }) => {
 
           <div className="w-3/12">
             <button
+              data-testid="add-btn"
               onClick={() => handleOnClick(menu)}
               className="absolute bg-black text-white shadow-lg m-auto p-2 rounded-lg"
             >

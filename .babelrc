@@ -1,0 +1,10 @@
+// although this is perfect valid JS object
+// { presets: [['@babel/preset-env', {targets: {node: 'current'}}]]};
+// babelrc requires json (complete different to javascript)
+// json requires double quote
+{
+  "presets": [
+    ["@babel/preset-env", { "targets": { "node": "current" } }],
+    ["@babel/preset-react", { "runtime": "automatic" }]
+  ]
+}

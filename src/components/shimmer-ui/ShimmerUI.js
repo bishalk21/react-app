@@ -1,7 +1,7 @@
 const ShimmerUI = () => {
   let shimmerCard = 20;
   return (
-    <div className="shimmer-container">
+    <div className="shimmer-container" data-testid="shimmer">
       {Array.from({ length: shimmerCard }, (_, i) => (
         <div className="shimmer-card" key={i}>
           <div className="card-content-img"></div>

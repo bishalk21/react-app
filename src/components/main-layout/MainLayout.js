@@ -48,6 +48,7 @@ const MainLayout = () => {
         <div className="filter">
           <div className="search">
             <input
+              data-testid="search-input"
               type="text"
               value={searchText}
               onChange={(e) => {
@@ -56,6 +57,7 @@ const MainLayout = () => {
               placeholder="Search restaurant, food ...."
             />
             <button
+              data-testid="search-btn"
               onClick={() => {
                 // once got the search text in state
                 // filter the restaurant list, render the comp and update the ui
@@ -96,7 +98,7 @@ const MainLayout = () => {
               <ShimmerUI />
             </>
           ) : (
-            <div className="restaurant-container">
+            <div className="restaurant-container" data-testid="restro-list">
               {!showAllRestaurants
                 ? filteredResList.map((res) => (
                     <Link key={res.data.id} to={"/restaurants/" + res.data.id}>

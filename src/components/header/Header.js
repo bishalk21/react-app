@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import logo from "../../assets/logo.png";
+import Logo from "../../assets/logo.png";
 import "./header.css";
 import { Link } from "react-router-dom";
 import MobileNav from "./mobile-nav/MobileNav";
@@ -40,9 +40,9 @@ const Header = () => {
   return (
     <>
       <div className={`header ${sticky ? "sticky-nav" : ""}`}>
-        <div className="logo">
+        <div className="logo" data-testid="logo">
           <Link to="/">
-            <img src={logo} alt="logo" />
+            <img src={Logo} alt="logo" />
           </Link>
         </div>
 
@@ -76,7 +76,7 @@ const Header = () => {
                   <i class="fa-solid fa-paper-plane"></i> Contact Us
                 </Link>
               </li>
-              <li className="cart">
+              <li className="cart" data-testid="cart">
                 <Link to="/cart">
                   <i class="fa-solid fa-cart-shopping"></i> Cart
                   <span>{cartItems.length}</span>
