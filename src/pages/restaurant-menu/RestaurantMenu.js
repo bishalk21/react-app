@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ShimmerUI from "../../components/shimmer-ui/ShimmerUI";
 import { Link, useParams } from "react-router-dom";
 import useRestaurantMenu from "../../hooks/useRestaurantMenu";
-import "./restaurant-menu.css";
 import { MEAL_IMG_URL } from "../../utils/constant";
 import RestaurantCategory from "../../components/restaurant-category/RestaurantCategory";
 
@@ -75,15 +74,18 @@ const RestaurantMenu = () => {
   // }, [searchInput, resMenu]);
 
   return (
-    <div className="restro-menu">
-      <div className="retro-info">
-        <div className="cuisines-price">
-          <h1>{name}</h1>
-          <p>{costForTwoMessage}</p>
+    <div className="flex flex-col">
+      <div className="mr-2 ml-2 flex flex-col justify-start p-8 max-[478px]:text-sm">
+        <div className="mb-6 flex justify-between gap-1">
+          <h1 className="font-semibold">{name}</h1>
+          <p className="font-normal">{costForTwoMessage}</p>
         </div>
-        <div className="cuisines-price">
+        <div className="flex justify-between gap-1">
           <p>{cuisines.join(", ")}</p>
-          <Link to="contact" className="btn btn-primary book-btn">
+          <Link
+            to="contact"
+            className="btn font-medium uppercase text-base text-[lightgray] bg-[#af6e4d] relative cursor-pointer z-10 inline-block max-[478px]:text-sm"
+          >
             Reserve
           </Link>
         </div>
@@ -102,13 +104,13 @@ const RestaurantMenu = () => {
         );
       })}
 
-      <section className="light-body" id="menus">
+      <section className="light-body hidden pt-4 pb-4 pr-10 pl-10" id="menus">
         <div className="container">
-          <div className="menus-header">
+          <div className="flex items-center justify-between">
             <div id="menus-title">
-              <h2 className="menus-title">Our Meals</h2>
+              <h2 className="text-lg font-semibold">Our Meals</h2>
             </div>
-            <div className="menu-search">
+            <div className="relative">
               <input
                 onChange={(e) => {
                   setSearchInput(e.target.value);
