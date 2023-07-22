@@ -252,9 +252,7 @@ img {
   transform: translateX(-50%);
 }
 
-
-
-
+/* Menu Cards practice - hidden */
 #myInput {
   width: 20rem;
   font-size: 1rem;
@@ -513,4 +511,3 @@ li.show {
     font-size: 2.7rem;
   }
 }
-

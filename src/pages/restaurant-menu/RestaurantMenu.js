@@ -75,7 +75,7 @@ const RestaurantMenu = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="mr-2 ml-2 flex flex-col justify-start p-8 max-[478px]:text-sm">
+      <div className="mr-3 ml-3 mb-2 flex flex-col justify-start p-4 max-[478px]:text-sm border-b border-solid border-[lightgray]">
         <div className="mb-6 flex justify-between gap-1">
           <h1 className="font-semibold">{name}</h1>
           <p className="font-normal">{costForTwoMessage}</p>
