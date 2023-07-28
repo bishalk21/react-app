@@ -40,8 +40,6 @@ const MainLayout = () => {
     );
   }
 
-  console.log(filteredResList);
-
   return (
     <>
       <div className="relative">
@@ -97,7 +95,7 @@ const MainLayout = () => {
         className="flex flex-wrap justify-center text-[#100f0f]"
         data-testid="restro-list"
       >
-        {resList?.length === 0 ? (
+        {resList.length === 0 ? (
           <ShimmerUI />
         ) : (
           filteredResList.map((res) => (
