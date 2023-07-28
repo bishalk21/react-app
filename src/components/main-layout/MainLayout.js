@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import RestaurantCard, {
   withPromotedLabel,
 } from "../restro-card/RestaurantCard";
@@ -6,11 +6,9 @@ import ShimmerUI from "../shimmer-ui/ShimmerUI";
 import { Link } from "react-router-dom";
 import { RESTRO_LIST } from "../../utils/constant";
 import useOnlineStatus from "../../hooks/useOnlineStatus";
-// import { resObjList } from "../../utils/mockData";
 
 const MainLayout = () => {
   const [resList, setResList] = useState([]);
-  // const [resList, setResList] = useState(resObjList);
   const [filteredResList, setFilteredResList] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [showAllRestaurants, setShowAllRestaurants] = useState(false);
@@ -18,22 +16,23 @@ const MainLayout = () => {
 
   const RestaurantCardWithPromoted = withPromotedLabel(RestaurantCard);
 
-  // console.log("body rendered");
-
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(RESTRO_LIST);
-    const json = await data.json();
+    try {
+      const data = await fetch(RESTRO_LIST);
+      const json = await data.json();
 
-    setResList(
-      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setFilteredResList(
-      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
+      const restaurants =
+        json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants;
+      setResList(restaurants);
+      setFilteredResList(restaurants);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   const handleSeeAllRestaurants = () => {
@@ -45,6 +44,8 @@ const MainLayout = () => {
       <h1>Looks like you're offline, Please check your internet connection </h1>
     );
   }
+
+  const restaurantsToRender = showAllRestaurants ? resList : filteredResList;
 
   return (
     <>
@@ -98,44 +99,24 @@ const MainLayout = () => {
             </button>
           </>
         </div>
-        <>
-          {resList?.length === 0 ? (
-            <>
-              <ShimmerUI />
-            </>
-          ) : (
-            <div
-              className="flex flex-wrap justify-center text-[#100f0f]"
-              data-testid="restro-list"
-            >
-              {!showAllRestaurants
-                ? filteredResList?.map((res) => (
-                    <Link
-                      key={res?.info.id}
-                      to={"/restaurants/" + res?.info.id}
-                    >
-                      {res?.info.promoted ? (
-                        <RestaurantCardWithPromoted resData={res} />
-                      ) : (
-                        <RestaurantCard resData={res} />
-                      )}
-                    </Link>
-                  ))
-                : resList.map((res) => (
-                    <Link
-                      key={res?.info.id}
-                      to={"/restaurants/" + res?.info.id}
-                    >
-                      {res?.info.promoted ? (
-                        <RestaurantCardWithPromoted resData={res} />
-                      ) : (
-                        <RestaurantCard resData={res} />
-                      )}
-                    </Link>
-                  ))}
-            </div>
-          )}
-        </>
+      </div>
+      <div
+        className="flex flex-wrap justify-center text-[#100f0f]"
+        data-testid="restro-list"
+      >
+        {resList.length === 0 ? (
+          <ShimmerUI />
+        ) : (
+          restaurantsToRender.map((res) => (
+            <Link key={res?.info.id} to={"/restaurants/" + res?.info.id}>
+              {res?.info.promoted ? (
+                <RestaurantCardWithPromoted resData={res} />
+              ) : (
+                <RestaurantCard resData={res} />
+              )}
+            </Link>
+          ))
+        )}
       </div>
     </>
   );
