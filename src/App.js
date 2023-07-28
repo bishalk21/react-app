@@ -25,18 +25,18 @@ const RestaurantMenu = lazy(() =>
 
 const AppLayout = () => {
   // ---------- RTK
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // ---------- RTK
-  const userInfo = useSelector((state) => state.user.userInfo);
+  // const userInfo = useSelector((state) => state.user.userInfo);
 
-  useEffect(() => {
-    // api call - username and password
-    const data = {
-      name: userInfo,
-    };
-    dispatch(setUserInfo(data.name));
-  }, []);
+  // useEffect(() => {
+  // api call - username and password
+  //   const data = {
+  //     name: userInfo,
+  //   };
+  //   dispatch(setUserInfo(data.name));
+  // }, []);
   return (
     <Provider store={store}>
       <div className="app">
