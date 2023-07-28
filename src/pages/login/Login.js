@@ -1,14 +1,39 @@
-import { useContext, useState } from "react";
-import UserContext from "../../context/UserContext";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+// import UserContext from "../../context/UserContext";
+
+// --------- RTK
+import { useDispatch, useSelector } from "react-redux";
+import { setUserInfo } from "../../reducers/userSlice";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const { setUserInfo } = useContext(UserContext);
+  const [userName, setUserName] = useState("");
   const navigate = useNavigate();
 
+  // const [userInfo, setUserInfo] = useState();
+  // ---------- RTK
+  const dispatch = useDispatch();
+
+  // ---------- RTK
+  const userInfo = useSelector((state) => state.user.userInfo);
+
+  useEffect(() => {
+    // api call - username and password
+    const data = {
+      name: userInfo,
+    };
+    dispatch(setUserInfo(data.name));
+  }, []);
+
+  // -------- USING CONTEXT
+  // const { setUserInfo } = useContext(UserContext);
+
   const handleLogin = () => {
-    setUserInfo(username);
+    // ------------ context
+    // setUserInfo(userName)
+
+    // -------rtk
+    dispatch(setUserInfo(userName));
     navigate("/"); // Navigate to dashboard page
   };
 
@@ -28,8 +53,8 @@ const Login = () => {
               id="username"
               type="text"
               placeholder="Enter your username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
             />
           </div>
           <div class="mb-6">

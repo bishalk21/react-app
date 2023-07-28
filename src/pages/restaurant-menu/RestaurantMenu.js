@@ -90,19 +90,26 @@ const RestaurantMenu = () => {
           </Link>
         </div>
       </div>
-
-      {categories.map((category, index) => {
-        return (
-          <RestaurantCategory
-            key={category?.card?.card?.title}
-            data={category?.card?.card}
-            showItems={index === showIndex ? true : false}
-            setShowIndex={() => {
-              setShowIndex((prevIndex) => (prevIndex === index ? -1 : index));
-            }}
-          />
-        );
-      })}
+      {categories?.length === 0 ? (
+        <MealShimmer />
+      ) : (
+        <>
+          {categories.map((category, index) => {
+            return (
+              <RestaurantCategory
+                key={category?.card?.card?.title}
+                data={category?.card?.card}
+                showItems={index === showIndex ? true : false}
+                setShowIndex={() => {
+                  setShowIndex((prevIndex) =>
+                    prevIndex === index ? -1 : index
+                  );
+                }}
+              />
+            );
+          })}
+        </>
+      )}
 
       <section className="light-body hidden pt-4 pb-4 pr-10 pl-10" id="menus">
         <div className="container">

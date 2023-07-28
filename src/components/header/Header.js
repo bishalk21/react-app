@@ -1,9 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import Logo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MobileNav from "./mobile-nav/MobileNav";
 import UserContext from "../../context/UserContext";
 import { useSelector } from "react-redux";
+import { clearUser } from "../../reducers/userSlice";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -11,8 +12,13 @@ const Header = () => {
   const [mobileNavbar, setMobileNavbar] = useState(false);
 
   const cartItems = useSelector((store) => store.cart.items);
+  const navigate = useNavigate();
 
-  const { userInfo, setUserInfo } = useContext(UserContext);
+  // ------------ context
+  // const { userInfo, setUserInfo } = useContext(UserContext);
+
+  // ---------- RTK
+  const userInfo = useSelector((state) => state.user.userInfo);
 
   const handleOnClick = () => {
     setMobileNavbar(!mobileNavbar);
@@ -28,11 +34,12 @@ const Header = () => {
 
   window.addEventListener("scroll", handleOnScroll);
 
-  useEffect(() => {}, [isLoggedIn]);
+  // useEffect(() => {}, []);
 
-  const handleOnBtnClick = () => {
-    // setBtnName("Logout")
-    setIsLoggedIn(!isLoggedIn);
+  const handleLogout = () => {
+    // setUserInfo(null);
+    clearUser();
+    navigate("/"); // Navigate back to the login page after logout
   };
 
   return (
@@ -80,18 +87,15 @@ const Header = () => {
               </li>
               <li className="cart max-[426px]:text-xs" data-testid="cart">
                 <Link to="/cart">
-                  <i class="fa-solid fa-cart-shopping"></i> Cart
-                  <span>{cartItems.length}</span>
+                  <i class="fa-solid fa-cart-shopping"></i> Cart{" "}
+                  <span>
+                    {cartItems.length === 0 ? null : cartItems.length}
+                  </span>
                 </Link>
               </li>
 
               <li className="bg-transparent max-[426px]:text-xs">
-                <Link to="/login">
-                  <button
-                    className="max-[426px]:text-xs flex items-center justify-center gap-1 p-1 cursor-pointer text-xl rounded-md"
-                    // onClick={handleOnBtnClick}
-                  >
-                    {/* {isLoggedIn ? (
+                {/* {isLoggedIn ? (
                     <>
                       <i class="fa-solid fa-user-large"></i> Logout
                     </>
@@ -101,20 +105,42 @@ const Header = () => {
                       {loggedInUser}
                     </>
                   )} */}
-                    {/* <i class="fa-solid fa-right-to-bracket"></i> Login */}
+                {/* <i class="fa-solid fa-right-to-bracket"></i> Login */}
 
-                    {userInfo ? (
-                      <>
-                        <i class="fa-solid fa-user-large"></i>
-                        {userInfo}
-                      </>
-                    ) : (
-                      <>
-                        <i class="fa-solid fa-right-to-bracket"></i> Login
-                      </>
-                    )}
-                  </button>
-                </Link>
+                {userInfo ? (
+                  <>
+                    <div className="flex gap-2">
+                      {" "}
+                      <div className="user">
+                        <button
+                          className="max-[426px]:text-xs flex items-center justify-center gap-1 p-1 cursor-pointer text-xl rounded-md"
+                          // onClick={handleOnBtnClick}
+                        >
+                          <i class="fa-solid fa-user-large"></i> {userInfo}
+                        </button>{" "}
+                      </div>
+                      <div className="user">
+                        <button
+                          className="max-[426px]:text-xs flex items-center justify-center gap-1 p-1 cursor-pointer text-xl rounded-md"
+                          onClick={handleLogout}
+                        >
+                          <i class="fa-solid fa-right-to-bracket"></i> Signout
+                        </button>{" "}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/login">
+                      <button
+                        className="max-[426px]:text-xs flex items-center justify-center gap-1 p-1 cursor-pointer text-xl rounded-md"
+                        // onClick={handleOnBtnClick}
+                      >
+                        <i class="fa-solid fa-right-to-bracket"></i> Login{" "}
+                      </button>{" "}
+                    </Link>
+                  </>
+                )}
               </li>
             </ul>
           </div>
