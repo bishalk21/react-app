@@ -12,7 +12,7 @@ import AboutUs from "./pages/about-us/AboutUs";
 import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
 import ShimmerUI from "./components/shimmer-ui/ShimmerUI";
 import store from "./utils/store";
-import { Provider, useDispatch } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import Cart from "./pages/cart/Cart";
 import Login from "./pages/login/Login";
 import { setUserInfo } from "./reducers/userSlice";
