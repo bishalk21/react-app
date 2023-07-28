@@ -104,10 +104,10 @@ const MainLayout = () => {
         className="flex flex-wrap justify-center text-[#100f0f]"
         data-testid="restro-list"
       >
-        {resList.length === 0 ? (
+        {restaurantsToRender?.length === 0 ? (
           <ShimmerUI />
         ) : (
-          restaurantsToRender.map((res) => (
+          restaurantsToRender?.map((res) => (
             <Link key={res?.info.id} to={"/restaurants/" + res?.info.id}>
               {res?.info.promoted ? (
                 <RestaurantCardWithPromoted resData={res} />
