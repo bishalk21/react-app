@@ -15,6 +15,7 @@ import UserContext from "./context/UserContext";
 import store from "./utils/store";
 import { Provider } from "react-redux";
 import Cart from "./pages/cart/Cart";
+import Login from "./pages/login/Login";
 // import Grocery from "./learning-optimization/Grocery";
 
 const Grocery = lazy(() => import("./learning-optimization/Grocery"));
@@ -27,24 +28,21 @@ const AppLayout = () => {
 
   useEffect(() => {
     // api call - username and password
-    const data = {
-      name: "Bishal",
-    };
-    setUserInfo(data.name);
+    const data = null;
+    setUserInfo(data);
   }, []);
 
   return (
     <Provider store={store}>
       {/* // default value */}
-      <UserContext.Provider value={{ loggedInUser: userInfo, setUserInfo }}>
+      <UserContext.Provider value={{ userInfo, setUserInfo }}>
         {/* Bishal Karki */}
         <div className="app">
           <ScrollToTop />
-          <UserContext.Provider value={{ loggedInUser: userInfo, setUserInfo }}>
-            {/* Akshay Saini */}
+          <UserContext.Provider value={{ userInfo, setUserInfo }}>
+            {/* Akshay Saini --- only in header */}
             <Header />
           </UserContext.Provider>
-
           <Outlet />
         </div>
       </UserContext.Provider>
@@ -88,6 +86,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
     ],
     errorElement: <Error />,

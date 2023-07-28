@@ -3,14 +3,10 @@ import { CDN_URL } from "../../utils/constant";
 const RestaurantCard = (props) => {
   const { resData } = props;
 
-  const {
-    cloudinaryImageId,
-    name,
-    cuisines,
-    avgRating,
-    costForTwo,
-    deliveryTime,
-  } = resData?.data;
+  const { cloudinaryImageId, name, cuisines, avgRating, costForTwo } =
+    resData?.info;
+
+  const { deliveryTime } = resData?.info.sla;
 
   return (
     <div className="restaurant-card w-80 h-96 rounded-md relative hover:cursor-pointer hover:bg-transparent hover:text-[lightgray] hover:border-none menu-card">
@@ -28,10 +24,7 @@ const RestaurantCard = (props) => {
           </div>
           <div className="flex justify-between">
             <div class="text-base font-medium">
-              <span className="font-extrabold mb-4  ">
-                $ {costForTwo / 100}
-              </span>{" "}
-              For 2
+              <span className="font-extrabold mb-4  ">{costForTwo}</span>
             </div>
             <h5 className="p-2 text-red-700">
               <i class="fa-solid fa-clock"></i> {deliveryTime} minutes

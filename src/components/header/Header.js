@@ -12,7 +12,7 @@ const Header = () => {
 
   const cartItems = useSelector((store) => store.cart.items);
 
-  const { loggedInUser, setUserInfo } = useContext(UserContext);
+  const { userInfo, setUserInfo } = useContext(UserContext);
 
   const handleOnClick = () => {
     setMobileNavbar(!mobileNavbar);
@@ -55,7 +55,7 @@ const Header = () => {
           <input
             type="text"
             className="text-black"
-            value={loggedInUser}
+            value={userInfo}
             onChange={(e) => setUserInfo(e.target.value)}
           />
         </div>
@@ -86,11 +86,12 @@ const Header = () => {
               </li>
 
               <li className="bg-transparent max-[426px]:text-xs">
-                <button
-                  className="max-[426px]:text-xs flex items-center justify-center gap-1 p-1 cursor-pointer text-xl rounded-md"
-                  onClick={handleOnBtnClick}
-                >
-                  {isLoggedIn ? (
+                <Link to="/login">
+                  <button
+                    className="max-[426px]:text-xs flex items-center justify-center gap-1 p-1 cursor-pointer text-xl rounded-md"
+                    // onClick={handleOnBtnClick}
+                  >
+                    {/* {isLoggedIn ? (
                     <>
                       <i class="fa-solid fa-user-large"></i> Logout
                     </>
@@ -99,8 +100,21 @@ const Header = () => {
                       <i class="fa-solid fa-right-to-bracket"></i>{" "}
                       {loggedInUser}
                     </>
-                  )}
-                </button>
+                  )} */}
+                    {/* <i class="fa-solid fa-right-to-bracket"></i> Login */}
+
+                    {userInfo ? (
+                      <>
+                        <i class="fa-solid fa-user-large"></i>
+                        {userInfo}
+                      </>
+                    ) : (
+                      <>
+                        <i class="fa-solid fa-right-to-bracket"></i> Login
+                      </>
+                    )}
+                  </button>
+                </Link>
               </li>
             </ul>
           </div>

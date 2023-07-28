@@ -28,8 +28,12 @@ const MainLayout = () => {
     const data = await fetch(RESTRO_LIST);
     const json = await data.json();
 
-    setResList(json?.data?.cards[2]?.data?.data?.cards);
-    setFilteredResList(json?.data?.cards[2]?.data?.data?.cards);
+    setResList(
+      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    setFilteredResList(
+      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
   };
 
   const handleSeeAllRestaurants = () => {
@@ -78,7 +82,7 @@ const MainLayout = () => {
               className="cursor-pointer bg-[lightgray] p-2 rounded-lg border-none hover:bg-white"
               onClick={() => {
                 const filteredList = resList.filter(
-                  (res) => res.data.avgRating > 4
+                  (res) => res?.info.avgRating > 4
                 );
                 setFilteredResList(filteredList);
                 setShowAllRestaurants(false);
@@ -105,9 +109,12 @@ const MainLayout = () => {
               data-testid="restro-list"
             >
               {!showAllRestaurants
-                ? filteredResList.map((res) => (
-                    <Link key={res.data.id} to={"/restaurants/" + res.data.id}>
-                      {res.data.promoted ? (
+                ? filteredResList?.map((res) => (
+                    <Link
+                      key={res?.info.id}
+                      to={"/restaurants/" + res?.info.id}
+                    >
+                      {res?.info.promoted ? (
                         <RestaurantCardWithPromoted resData={res} />
                       ) : (
                         <RestaurantCard resData={res} />
@@ -115,8 +122,11 @@ const MainLayout = () => {
                     </Link>
                   ))
                 : resList.map((res) => (
-                    <Link key={res.data.id} to={"/restaurants/" + res.data.id}>
-                      {res.data.promoted ? (
+                    <Link
+                      key={res?.info.id}
+                      to={"/restaurants/" + res?.info.id}
+                    >
+                      {res?.info.promoted ? (
                         <RestaurantCardWithPromoted resData={res} />
                       ) : (
                         <RestaurantCard resData={res} />
