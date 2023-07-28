@@ -11,7 +11,6 @@ const MainLayout = () => {
   const [resList, setResList] = useState([]);
   const [filteredResList, setFilteredResList] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [showAllRestaurants, setShowAllRestaurants] = useState(false);
   const onlineStatus = useOnlineStatus();
 
   const RestaurantCardWithPromoted = withPromotedLabel(RestaurantCard);
@@ -26,7 +25,7 @@ const MainLayout = () => {
       const json = await data.json();
 
       const restaurants =
-        json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
+        json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants;
       setResList(restaurants);
       setFilteredResList(restaurants);
@@ -35,17 +34,13 @@ const MainLayout = () => {
     }
   };
 
-  const handleSeeAllRestaurants = () => {
-    setShowAllRestaurants(true);
-  };
-
   if (onlineStatus === false) {
     return (
       <h1>Looks like you're offline, Please check your internet connection </h1>
     );
   }
 
-  const restaurantsToRender = showAllRestaurants ? resList : filteredResList;
+  console.log(filteredResList);
 
   return (
     <>
@@ -72,7 +67,6 @@ const MainLayout = () => {
                   res.data.name.toLowerCase().includes(searchText.toLowerCase())
                 );
                 setFilteredResList(filteredSearchRes);
-                setShowAllRestaurants(false);
               }}
             >
               Search
@@ -86,14 +80,13 @@ const MainLayout = () => {
                   (res) => res?.info.avgRating > 4
                 );
                 setFilteredResList(filteredList);
-                setShowAllRestaurants(false);
               }}
             >
               Top Rated Restaurants
             </button>
             <button
               className="cursor-pointer bg-[lightgray] p-2 rounded-lg border-none hover:bg-white see-all-btn"
-              onClick={handleSeeAllRestaurants}
+              onClick={() => setFilteredResList(resList)}
             >
               See All Restaurants
             </button>
@@ -104,10 +97,10 @@ const MainLayout = () => {
         className="flex flex-wrap justify-center text-[#100f0f]"
         data-testid="restro-list"
       >
-        {restaurantsToRender?.length === 0 ? (
+        {resList?.length === 0 ? (
           <ShimmerUI />
         ) : (
-          restaurantsToRender?.map((res) => (
+          filteredResList.map((res) => (
             <Link key={res?.info.id} to={"/restaurants/" + res?.info.id}>
               {res?.info.promoted ? (
                 <RestaurantCardWithPromoted resData={res} />

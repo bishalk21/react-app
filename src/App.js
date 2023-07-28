@@ -12,9 +12,10 @@ import AboutUs from "./pages/about-us/AboutUs";
 import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
 import ShimmerUI from "./components/shimmer-ui/ShimmerUI";
 import store from "./utils/store";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import Cart from "./pages/cart/Cart";
 import Login from "./pages/login/Login";
+import { setUserInfo } from "./reducers/userSlice";
 // import Grocery from "./learning-optimization/Grocery";
 
 const Grocery = lazy(() => import("./learning-optimization/Grocery"));
@@ -23,6 +24,19 @@ const RestaurantMenu = lazy(() =>
 );
 
 const AppLayout = () => {
+  // ---------- RTK
+  const dispatch = useDispatch();
+
+  // ---------- RTK
+  const userInfo = useSelector((state) => state.user.userInfo);
+
+  useEffect(() => {
+    // api call - username and password
+    const data = {
+      name: userInfo,
+    };
+    dispatch(setUserInfo(data.name));
+  }, []);
   return (
     <Provider store={store}>
       <div className="app">
