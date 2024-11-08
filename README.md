@@ -1,5 +1,14 @@
 # [Table-of-contents]
 
+- Inception of React
+
+  - basic setup
+    - vs code
+    - node.js
+    - npm
+    - git
+    - browser
+
 - laying the foundation
 - core of react elements
 - existence of jsx
