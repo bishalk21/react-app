@@ -214,6 +214,12 @@ Parcel is a web application bundler, differentiated by its developer experience.
 - port number
 - consistent hashing algorithm to cache things up
 - zero config - no need of many configurations. No configuration is required in order to use parcel in the application.
+- differential bundling - when app is hosted, app can be open in IE and older versions of IE, firefox and parcel takes care of all these by giving differential bundling to app and hence app runs smoothly in older browsers as well
+- tree shaking - remove unused codes
+- code splitting
+- diagnostic
+- error handling
+- dev and production build
 - no need of webpack.config.js
 
 [Parcel Development](https://parceljs.org/features/development/)
